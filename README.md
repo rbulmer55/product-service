@@ -22,6 +22,7 @@ The terrform script takes the output dist files from ESBUILD, zips them up and d
 
 ### .env
 
-export TF_VAR_MDB_ATLAS_PUBLIC_KEY=""
+```export TF_VAR_MDB_ATLAS_PUBLIC_KEY=""
 export TF_VAR_MDB_ATLAS_PRIVATE_KEY=""
 export TF_VAR_MDB_ATLAS_PROJECT_ID=""
+```
