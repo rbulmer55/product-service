@@ -9,7 +9,7 @@ provider "mongodbatlas" {
 module "application_vpc_module" {
   source      = "../../modules/vpc"
   environment = "Dev"
-  vpcName     = "KafkaAtlasVpc"
+  vpcName     = "ProductServiceVPC"
 }
 
 module "mongodb_atlas_module" {
@@ -26,7 +26,7 @@ module "mongodb_atlas_module" {
 module "application_secrets" {
   source      = "../../modules/secrets"
   environment = "Dev"
-  project     = "kafka-atlas"
+  project     = "product-service-atlas"
 }
 
 module "create_product_lambda_module" {

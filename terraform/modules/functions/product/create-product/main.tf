@@ -86,13 +86,12 @@ data "archive_file" "zip_create_product" {
 }
 
 resource "aws_lambda_function" "create_product_func" {
-  filename         = "${path.module}/create-product-lambda.zip"
+  filename         = data.archive_file.zip_create_product.output_path
   function_name    = "CreateProduct${var.environment}"
   role             = aws_iam_role.lambda_role.arn
   handler          = "create-product-lambda.handler"
   runtime          = "nodejs20.x"
-  depends_on       = [aws_iam_role_policy_attachment.attach_iam_policy_to_iam_role]
-  source_code_hash = filebase64sha256("${path.module}/create-product-lambda.zip")
+  source_code_hash = data.archive_file.zip_create_product.output_base64sha256
   timeout          = 10
   vpc_config {
     subnet_ids         = [var.privateSubnetId]
@@ -103,4 +102,5 @@ resource "aws_lambda_function" "create_product_func" {
       MONGO_DB_SECRET : var.dbConnectionSecretName
     }
   }
+  depends_on = [aws_iam_role_policy_attachment.attach_iam_policy_to_iam_role, data.archive_file.zip_create_product]
 }
